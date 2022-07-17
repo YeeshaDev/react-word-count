@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 
 export default function Form(){
-    const [input,setInput] = useState("")
-    const [count,setCount] = useState(0)
     const [charCount,setCharCount] = useState(0)
-    const [maxLen,setMaxLen] = useState("")
+    const [maxLen,setMaxLen] = useState(1000)
+    const [count,setCount] = useState(0)
+    const [input,setInput] = useState("")
+    const [word,setWords] = useState(0)
 
 function handleSubmit(e){
 e.preventDefault();
@@ -14,23 +15,29 @@ e.preventDefault();
 const wordChange =(e)=> {
 wordcount(e.target.value)
 setInput(e.target.value)
-console.log(input)
 
 }
 
-function wordcount(str){
+function wordcount(str,ev){
     let c = 0;
     let str1 = str.split(" ");
-    charCnt(str);
+    let max = 5
 
     for (let i = 0; i < str1.length; i++) {
-      if (str1.length === 0) {
-        setCount(0);
-      }
+    
       if (str1[i] !== "") {
         c++;
       }
+      if (str1.length >= max + 1) {
+      
+        str1.length = max
+       ev.preventDefault()   
+        console.log('error')
+      }
       setCount(c);
+      charCnt(str)
+      setWords(max - count)
+      
     }
   }
 
@@ -40,11 +47,19 @@ function wordcount(str){
       if (str[i] !== " ") {
         c++;
       }
+    
     }
-    setCharCount(c);
+  
+    setCharCount(c); 
   }
 
-  function handleClick(e) {
+  function maxNum (e){
+  setMaxLen(e.target.value)
+
+  }
+
+  
+  function handleClick() {
    setInput("")
   setCount(0);
 setCharCount(0);
@@ -58,17 +73,22 @@ setMaxLen("")
             <input type="number"
              placeholder="Input no of words"
              value={maxLen}
-             onChange={(e) => setMaxLen(e.target.value)}
+             onChange={maxNum}
+             
              />
-           <textarea type="text" cols ="50" rows="20"
+           <textarea type="text" cols ="50" rows="20" 
            placeholder="Write your text here.."
            className="text--input"
            onChange={wordChange}
-           maxLength={maxLen}
-           value={input}>
+           value={input}
+           
+          
+           >
             </textarea> 
-           <p>Number of words: {count} words</p>
-           <p>Number of characters: {charCount} characters</p>
+           <p>Number of words: {count} Words</p>
+           <p>Words left: {word} Remaining</p>
+           <p>Number of characters: {charCount} Characters</p>
+           
            <button onClick={handleClick}>
             Clear Text
            </button>
