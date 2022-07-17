@@ -21,7 +21,7 @@ setInput(e.target.value)
 function wordcount(str,ev){
     let c = 0;
     let str1 = str.split(" ");
-    let max = 5
+    let max = 1000
 
     for (let i = 0; i < str1.length; i++) {
     
