@@ -68,7 +68,7 @@ setMaxLen("")
            value={input}>
             </textarea> 
            <p>Number of words: {count} words</p>
-           <p>Number of charcters: {charCount} characters</p>
+           <p>Number of characters: {charCount} characters</p>
            <button onClick={handleClick}>
             Clear Text
            </button>
